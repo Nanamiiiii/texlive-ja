@@ -10,7 +10,7 @@ RUN apk add --no-cache \
 COPY ./texlive.profile ./
 RUN wget -nv https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 RUN tar -xzf ./install-tl-unx.tar.gz --strip-components=1
-RUN ./install-tl --profile=texlive.profile
+RUN ./install-tl --profile=texlive.profile --location https://ftp.yz.yamagata-u.ac.jp/pub/CTAN/systems/texlive/tlnet
 RUN ln -sf /usr/local/texlive/*/bin/* /usr/local/bin/texlive
 RUN tlmgr install \
   collection-fontsrecommended \
@@ -18,7 +18,7 @@ RUN tlmgr install \
   collection-latexextra \
   latexmk
 
-FROM alpine:3.15.0
+FROM alpine:3.15.0 AS runner
 ENV PATH /usr/local/bin/texlive:$PATH
 WORKDIR /workdir
 COPY --from=installer /usr/local/texlive /usr/local/texlive
