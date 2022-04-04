@@ -5,7 +5,10 @@ RUN apt-get update
 RUN apt-get install -y \
   perl \
   wget \
-  xz-utils
+  xz-utils \
+  libfontconfig1 \
+  fontconfig \
+  libfontconfig1-dev
 COPY ./texlive.profile ./
 RUN wget -nv https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 RUN tar -xzf ./install-tl-unx.tar.gz --strip-components=1
